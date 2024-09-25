@@ -1,8 +1,8 @@
 # klimaSky
 
 aplikacia na pocasie
-ukazovatel predpoved na 1 den
-ukazovatel predpoved na 7 dni
+ukazovatel predpovedi na 1 den
+ukazovatel predpovedi na 7 dni
 moznost prepnutia ukazovatela teploty v °C a °F
 ukazovatel zrazok v mm
 ukazovatel sily vetra v km/h, mp/h, m/s, y/s
