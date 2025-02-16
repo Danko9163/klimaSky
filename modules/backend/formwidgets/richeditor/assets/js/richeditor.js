@@ -52,6 +52,7 @@
         imageStyles: null,
         linkStyles: null,
         paragraphStyles: null,
+        inlineStyles: null,
         paragraphFormat: null,
         tableStyles: null,
         tableCellStyles: null,
@@ -116,15 +117,6 @@
                 'oc-link-strong': 'Thick'
               };
 
-        froalaOptions.paragraphStyles = this.options.paragraphStyles
-            ? this.options.paragraphStyles
-            : {
-                'oc-text-gray': 'Gray',
-                'oc-text-bordered': 'Bordered',
-                'oc-text-spaced': 'Spaced',
-                'oc-text-uppercase': 'Uppercase'
-              };
-
         froalaOptions.paragraphFormat = this.options.paragraphFormat
             ? this.options.paragraphFormat
             : {
@@ -135,6 +127,23 @@
                 'H4': 'Heading 4',
                 'PRE': 'Code'
             }
+
+        froalaOptions.paragraphStyles = this.options.paragraphStyles
+            ? this.options.paragraphStyles
+            : {
+                'oc-text-gray': 'Gray',
+                'oc-text-bordered': 'Bordered',
+                'oc-text-spaced': 'Spaced',
+                'oc-text-uppercase': 'Uppercase'
+              };
+
+        froalaOptions.inlineStyles = this.options.inlineStyles
+            ? this.options.inlineStyles
+            : {
+                'oc-class-code': 'Code',
+                'oc-class-highlighted': 'Highlighted',
+                'oc-class-transparency': 'Transparent'
+              };
 
         froalaOptions.tableStyles = this.options.tableStyles
             ? this.options.tableStyles

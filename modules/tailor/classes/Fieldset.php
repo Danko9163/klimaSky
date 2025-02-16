@@ -66,7 +66,7 @@ class Fieldset extends FieldsetDefinition
     /**
      * applyModelExtensions
      */
-    public function applyModelExtensions($model)
+    public function applyModelExtensions($model, $context = null)
     {
         if (!$model) {
             throw new SystemException('Cannot extend an empty model.');
@@ -75,7 +75,12 @@ class Fieldset extends FieldsetDefinition
         $fillable = [];
 
         foreach ($this->getAllFields() as $field) {
-            $field->extendModel($model);
+            if (in_array($context, ['export', 'import'])) {
+                $field->extendBatchModelObject($model);
+            }
+            else {
+                $field->extendModel($model);
+            }
 
             if ($field->guarded !== true) {
                 $fillable[] = $field->fieldName;
@@ -85,6 +90,13 @@ class Fieldset extends FieldsetDefinition
         if ($fillable) {
             $model->addFillable($fillable);
         }
+    }
+
+    /**
+     * applyModelExtensions
+     */
+    public function applyBatchModelExtensions($model)
+    {
     }
 
     /**
@@ -138,7 +150,12 @@ class Fieldset extends FieldsetDefinition
             }
 
             if ($field->column !== false) {
-                $field->defineListColumn($list, $context);
+                if (in_array($context, ['export', 'import'])) {
+                    $field->defineBatchListColumn($list, $context);
+                }
+                else {
+                    $field->defineListColumn($list, $context);
+                }
             }
         }
     }
@@ -173,8 +190,10 @@ class Fieldset extends FieldsetDefinition
         $columnNames = [];
 
         $table = new DbBlueprint('temp');
-        foreach ($this->getAllFields() as $fieldObj) {
-            $fieldObj->extendDatabaseTable($table);
+        foreach ($this->getAllFields() as $name => $fieldObj) {
+            if (!str_starts_with($name, '_')) {
+                $fieldObj->extendDatabaseTable($table);
+            }
         }
 
         foreach ($table->getColumns() as $column) {

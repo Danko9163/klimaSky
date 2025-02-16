@@ -37,8 +37,9 @@ class RichEditor extends VueComponentBase
 
             'imageStyles' => EditorSetting::getConfiguredStyles('html_style_image'),
             'linkStyles' => EditorSetting::getConfiguredStyles('html_style_link'),
-            'paragraphStyles' => EditorSetting::getConfiguredStyles('html_style_paragraph'),
             'paragraphFormat' => EditorSetting::getConfiguredFormats('html_paragraph_formats'),
+            'paragraphStyles' => EditorSetting::getConfiguredStyles('html_style_paragraph'),
+            'inlineStyles' => EditorSetting::getConfiguredStyles('html_style_inline'),
             'tableStyles' => EditorSetting::getConfiguredStyles('html_style_table'),
             'tableCellStyles' => EditorSetting::getConfiguredStyles('html_style_table_cell')
         ];

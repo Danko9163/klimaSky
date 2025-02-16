@@ -1,4 +1,3 @@
-##
 url = "/blog"
 layout = "blog"
 title = "Blog Homepage"
@@ -10,7 +9,14 @@ handle = "Blog\Post"
 handle = "Blog\Config"
 
 [resources]
-vars[activeNavLink] = 'blog'
+vars[activeNavLink] = "blog"
+
+[particulatesMap]
+overlay = "duexttau"
+projection = "orthographic"
+mapWidth = "100%"
+mapHeight = 480
+zoom = 400
 ==
 {% set posts = blog.paginate(5) %}
 {% set archiveDates = blog
@@ -26,3 +32,5 @@ vars[activeNavLink] = 'blog'
 <nav class="blog-pagination" aria-label="Pagination">
     {{ pager(posts) }}
 </nav>
+
+{% component 'particulatesMap' %}

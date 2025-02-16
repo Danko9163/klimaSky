@@ -213,8 +213,10 @@ class SchemaBuilder
     {
         $table = new DbBlueprint($this->tableName);
 
-        foreach ($fieldset->getAllFields() as $fieldObj) {
-            $fieldObj->extendDatabaseTable($table);
+        foreach ($fieldset->getAllFields() as $name => $fieldObj) {
+            if (!str_starts_with($name, '_')) {
+                $fieldObj->extendDatabaseTable($table);
+            }
         }
 
         return $table;

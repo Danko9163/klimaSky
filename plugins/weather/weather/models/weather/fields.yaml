@@ -1,0 +1,50 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    date:
+        label: Date
+        type: datepicker
+        span: auto
+    temperature:
+        label: Temperature (°C)
+        type: number
+        span: auto
+    city:
+        label: City
+        type: text
+        span: auto
+    description:
+        label: Description
+        type: textarea
+        span: auto
+    wind_speed:
+        label: Wind Speed (m/s)
+        type: number
+        span: auto
+    wind_direction:
+        label: Wind Direction
+        type: dropdown
+        span: auto
+        options:
+            south: South
+            north: North
+            east: East
+            west: West
+            northeast: Northeast
+            southeast: Southeast
+            southwest: Southwest
+            northwest: Northwest
+    wind_degree:
+        label: Wind Degree (°)
+        type: number
+        span: auto
+    precipitation:
+        label: Precipitation (mm)
+        type: number
+        span: auto
+    humidity:
+        label: Humidity (%)
+        type: number
+        span: auto

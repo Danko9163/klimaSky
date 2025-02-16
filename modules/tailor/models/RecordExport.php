@@ -43,6 +43,14 @@ class RecordExport extends ExportModel
     }
 
     /**
+     * @todo consolidate with HasGeneralBlueprint (v4)
+     */
+    public function extendWithBlueprint()
+    {
+        $this->getContentFieldsetDefinition()->applyModelExtensions($this, 'export');
+    }
+
+    /**
      * exportData
      */
     public function exportData($columns, $sessionKey = null)
@@ -79,6 +87,23 @@ class RecordExport extends ExportModel
             $value = $model->{$attr};
         }
 
+        /**
+         * @event model.beforeExportAttribute
+         * Called when the model is exporting an attribute
+         *
+         * Example usage:
+         *
+         *     $model->bindEvent('model.beforeExportAttribute', function (string $attr, mixed &$value) use (\October\Rain\Database\Model $model) {
+         *         // Apply data transformations
+         *         if ($attr === 'price') {
+         *             $value = number_format($value, 2);
+         *         }
+         *     });
+         *
+         */
+        $this->fireEvent('model.beforeExportAttribute', [$attr, &$value]);
+
+        // Apply native transformations
         if (is_array($value)) {
             $value = $this->encodeArrayValue($value);
         }

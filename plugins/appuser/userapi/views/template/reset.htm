@@ -1,0 +1,32 @@
+{% extends 'appuser.userapi::layouts.default' %}
+
+{% block title %}Enter new password{% endblock %}
+
+{% block content %}
+
+{% if reset %}
+<strong class="success">Password was successfully changed,</strong><br> you can now login.<br><br>
+{% else %}
+
+{% if error %}
+<div class="error">{{ error }}</div>
+{% endif %}
+
+<form method="post">
+    <label for="email">Enter your email</label><br>
+    <input type="email" name="email" placeholder="Email" value="{{ params.email }}"><br><br>
+
+    <label for="code">Enter your reset code</label><br>
+    <input type="text" name="code" placeholder="Code" value="{{ params.code }}"><br><br>
+
+    <label for="password">Enter your new password</label><br>
+    <input type="password" name="password" placeholder="Password"><br><br>
+
+    <label for="password_confirmation">Confirm your new password</label><br>
+    <input type="password" name="password_confirmation" placeholder="Password confirmation"><br><br>
+
+    <button>Submit</button>
+</form>
+
+{% endif %}
+{% endblock %}

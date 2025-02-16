@@ -17,10 +17,10 @@ tabs:
             label: Paragraph Formats
             tab: Markup Classes
             type: datatable
-            span: auto
+            span: full
             columns:
                 format_tag:
-                    title: Markup Classes
+                    title: Tag Name
                 format_label:
                     title: Label
 
@@ -35,8 +35,30 @@ tabs:
                 class_label:
                     title: Label
 
+        html_style_inline:
+            label: Inline
+            tab: Markup Classes
+            span: auto
+            type: datatable
+            columns:
+                class_name:
+                    title: Class Name
+                class_label:
+                    title: Label
+
         html_style_link:
             label: Link
+            tab: Markup Classes
+            span: auto
+            type: datatable
+            columns:
+                class_name:
+                    title: Class Name
+                class_label:
+                    title: Label
+
+        html_style_image:
+            label: Image
             tab: Markup Classes
             span: auto
             type: datatable
@@ -59,17 +81,6 @@ tabs:
 
         html_style_table_cell:
             label: Table Cell
-            tab: Markup Classes
-            span: auto
-            type: datatable
-            columns:
-                class_name:
-                    title: Class Name
-                class_label:
-                    title: Label
-
-        html_style_image:
-            label: Image
             tab: Markup Classes
             span: auto
             type: datatable

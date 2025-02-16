@@ -38,6 +38,14 @@ class FallbackField extends ContentFieldBase
     }
 
     /**
+     * defineBatchListColumn
+     */
+    public function defineBatchListColumn(ListElement $list, $context = null)
+    {
+        $list->defineColumn($this->fieldName, $this->label);
+    }
+
+    /**
      * defineFilterScope will define how a field is displayed in a filter.
      */
     public function defineFilterScope(FilterElement $filter, $context = null)

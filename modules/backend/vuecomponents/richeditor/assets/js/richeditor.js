@@ -39,15 +39,6 @@ oc.Modules.register('backend.component.richeditor', function () {
                   'oc-link-strong': 'Thick'
               };
 
-        froalaOptions.paragraphStyles = options.paragraphStyles
-            ? options.paragraphStyles
-            : {
-                  'oc-text-gray': 'Gray',
-                  'oc-text-bordered': 'Bordered',
-                  'oc-text-spaced': 'Spaced',
-                  'oc-text-uppercase': 'Uppercase'
-              };
-
         froalaOptions.paragraphFormat = options.paragraphFormat
             ? options.paragraphFormat
             : {
@@ -58,6 +49,23 @@ oc.Modules.register('backend.component.richeditor', function () {
               'H4': 'Heading 4',
               'PRE': 'Code'
             }
+
+        froalaOptions.paragraphStyles = options.paragraphStyles
+            ? options.paragraphStyles
+            : {
+                  'oc-text-gray': 'Gray',
+                  'oc-text-bordered': 'Bordered',
+                  'oc-text-spaced': 'Spaced',
+                  'oc-text-uppercase': 'Uppercase'
+              };
+
+        froalaOptions.inlineStyles = options.inlineStyles
+            ? options.inlineStyles
+            : {
+                'oc-class-code': 'Code',
+                'oc-class-highlighted': 'Highlighted',
+                'oc-class-transparency': 'Transparent'
+              };
 
         froalaOptions.tableStyles = options.tableStyles
             ? options.tableStyles

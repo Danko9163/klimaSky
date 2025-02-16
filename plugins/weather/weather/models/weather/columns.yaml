@@ -1,0 +1,43 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+    date:
+        label: Date
+        type: date
+    temperature:
+        label: Temperature (°C)
+        type: number
+        min: -50
+        max: 50
+    city:
+        label: City
+        searchable: true
+    description:
+        label: Description
+        searchable: true
+    wind_speed:
+        label: Wind Speed (m/s)
+        type: number
+    wind_direction:
+        label: Wind Direction
+        type: text
+    wind_degree:
+        label: Wind Degree (°)
+        type: number
+        min: 0
+        max: 360
+    precipitation:
+        label: Precipitation (mm)
+        type: number
+        min: 0
+        max: 800
+    humidity:
+        label: Humidity (%)
+        type: number
+        min: 0
+        max: 100

@@ -62,12 +62,22 @@ class ListColumn extends ColumnDefinition
     public function evalConfig(array $config)
     {
         if (isset($config['select'])) {
+            // @deprecated use below
             $this->sqlSelect($config['select']);
+            // $this->sqlSelect(array_pull($config, 'select'));
         }
 
         if (isset($config['default'])) {
             $this->defaults($config['default']);
         }
+    }
+
+    /**
+     * select
+     */
+    public function select($column)
+    {
+        $this->sqlSelect($column);
     }
 
     /**

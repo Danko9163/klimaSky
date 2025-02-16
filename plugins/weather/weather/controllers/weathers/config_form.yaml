@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Weather
+
+# Model Form Field configuration
+form: $/weather/weather/models/weather/fields.yaml
+
+# Model Class name
+modelClass: Weather\Weather\Models\Weather
+
+# Default redirect location
+defaultRedirect: weather/weather/weathers
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: weather/weather/weathers/update/:id
+    redirectClose: weather/weather/weathers
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: weather/weather/weathers
+    redirectClose: weather/weather/weathers
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

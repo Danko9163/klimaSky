@@ -3,3 +3,4 @@
 storage/cms/cache
 storage/framework/cache
 vendor/
+.env

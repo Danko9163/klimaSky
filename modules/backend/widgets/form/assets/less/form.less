@@ -352,6 +352,16 @@
     }
 }
 
+.input-no-spinner {
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
 .field-section {
     border-bottom: 1px solid var(--bs-border-color);
     padding-top: 3px;

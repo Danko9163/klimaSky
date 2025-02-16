@@ -88,6 +88,12 @@ class EditorSetting extends SettingModel
         'oc-text-uppercase' => 'Uppercase',
     ];
 
+    protected $defaultHtmlStyleInline = [
+        'oc-class-code' => 'Code',
+        'oc-class-highlighted' => 'Highlighted',
+        'oc-class-transparency' => 'Transparent',
+    ];
+
     /**
      * @var array defaultHtmlStyleTable
      */
@@ -125,7 +131,7 @@ class EditorSetting extends SettingModel
         'minimal' => 'bold, italic, underline, |, insertSnippet, insertPageLink, insertImage, |, html',
         'full'    => 'undo, redo, |, bold, italic, underline, |, paragraphFormat, paragraphStyle, inlineStyle, |,
                       strikeThrough, subscript, superscript, clearFormatting, |, fontFamily, fontSize, |, color,
-                      emoticons, -, selectAll, |, align, formatOL, formatUL, outdent, indent, quote, |, insertHR,
+                      emoticons, icons, -, selectAll, |, align, formatOL, formatUL, outdent, indent, quote, |, insertHR,
                       insertSnippet, insertPageLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, |, selectAll,
                       html, fullscreen',
     ];
@@ -150,10 +156,11 @@ class EditorSetting extends SettingModel
         $this->html_line_breaker_tags = static::getBaseConfig('line_breaker_tags', $this->defaultHtmlLineBreakerTags);
         $this->html_style_image = $this->makeStylesForTable(static::getBaseConfig('style_image', $this->defaultHtmlStyleImage));
         $this->html_style_link = $this->makeStylesForTable(static::getBaseConfig('style_link', $this->defaultHtmlStyleLink));
+        $this->html_paragraph_formats = $this->makeFormatsForTable(static::getBaseConfig('paragraph_formats', $this->defaultHtmlParagraphFormats));
         $this->html_style_paragraph = $this->makeStylesForTable(static::getBaseConfig('style_paragraph', $this->defaultHtmlStyleParagraph));
+        $this->html_style_inline = $this->makeStylesForTable(static::getBaseConfig('style_inline', $this->defaultHtmlStyleInline));
         $this->html_style_table = $this->makeStylesForTable(static::getBaseConfig('style_table', $this->defaultHtmlStyleTable));
         $this->html_style_table_cell = $this->makeStylesForTable(static::getBaseConfig('style_table_cell', $this->defaultHtmlStyleTableCell));
-        $this->html_paragraph_formats = $this->makeFormatsForTable(static::getBaseConfig('paragraph_formats', $this->defaultHtmlParagraphFormats));
 
         // Attempt to load custom CSS
         $htmlCssPath = File::symbolizePath(self::getBaseConfig('stylesheet_path', '~/modules/backend/models/editorsetting/default_styles.less'));

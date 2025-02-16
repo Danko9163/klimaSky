@@ -112,6 +112,8 @@ class BulkActions extends WildcardController
     {
         $model->setBlueprintUuid($this->activeSource->uuid);
 
+        $model->extendWithBlueprint();
+
         return $model;
     }
 

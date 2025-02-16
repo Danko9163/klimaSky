@@ -9,7 +9,7 @@
         id="<?= $field->getId() ?>"
         value="<?= e($field->value) ?>"
         placeholder="<?= e(__($field->placeholder)) ?>"
-        class="form-control"
+        class="form-control <?= $field->step === null ? 'input-no-spinner' : '' ?>"
         autocomplete="off"
         <?= $field->min !== null ? 'min="' . $field->min . '"' : '' ?>
         <?= $field->max !== null ? 'max="' . $field->max . '"' : '' ?>

@@ -38,6 +38,13 @@ abstract class ContentFieldBase extends FieldDefinition
     }
 
     /**
+     * extendBatchModelObject is used for import/export context
+     */
+    public function extendBatchModelObject($model)
+    {
+    }
+
+    /**
      * extendDatabaseTable
      */
     public function extendDatabaseTable($table)
@@ -52,9 +59,9 @@ abstract class ContentFieldBase extends FieldDefinition
     }
 
     /**
-     * defineFilterScope
+     * defineBatchListColumn is used for import/export context
      */
-    public function defineFilterScope(FilterElement $filter, $context = null)
+    public function defineBatchListColumn(ListElement $list, $context = null)
     {
     }
 
@@ -62,6 +69,20 @@ abstract class ContentFieldBase extends FieldDefinition
      * defineFormField
      */
     public function defineFormField(FormElement $form, $context = null)
+    {
+    }
+
+    /**
+     * defineBatchFormField is used for import/export context
+     */
+    public function defineBatchFormField(FormElement $form, $context = null)
+    {
+    }
+
+    /**
+     * defineFilterScope
+     */
+    public function defineFilterScope(FilterElement $filter, $context = null)
     {
     }
 

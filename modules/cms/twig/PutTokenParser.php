@@ -2,7 +2,7 @@
 
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
-use Twig\Error\SyntaxError;
+use Twig\Error\SyntaxError as TwigErrorSyntax;
 
 /**
  * PutTokenParser for the `{% put %}` Twig tag.
@@ -34,34 +34,57 @@ class PutTokenParser extends TwigTokenParser
         $names = $this->parser->getExpressionParser()->parseAssignmentExpression();
 
         $capture = false;
-        $endType = null;
+        $options = [];
         if ($stream->nextIf(TwigToken::OPERATOR_TYPE, '=')) {
             $values = $this->parser->getExpressionParser()->parseMultitargetExpression();
 
             $stream->expect(TwigToken::BLOCK_END_TYPE);
 
             if (count($names) !== count($values)) {
-                throw new SyntaxError('When using put, you must have the same number of variables and assignments.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
+                throw new TwigErrorSyntax('When using put, you must have the same number of variables and assignments.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
             }
         }
         else {
             $capture = true;
 
             if (count($names) > 1) {
-                throw new SyntaxError('When using put with a block, you cannot have multiple targets.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
+                throw new TwigErrorSyntax('When using put with a block, you cannot have multiple targets.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
             }
 
-            $stream->expect(TwigToken::BLOCK_END_TYPE);
+            $end = false;
+            while (!$end) {
+                $current = $stream->next();
+
+                switch ($current->getType()) {
+                    case TwigToken::NAME_TYPE:
+                        $options[] = strtolower(trim((string) $current->getValue()));
+                        break;
+
+                    case TwigToken::BLOCK_END_TYPE:
+                        $end = true;
+                        break;
+
+                    default:
+                        throw new TwigErrorSyntax(
+                            sprintf('Invalid syntax in the put tag. Line %s', $lineno),
+                            $stream->getCurrent()->getLine(),
+                            $stream->getSourceContext()
+                        );
+                        break;
+                }
+            }
+
             $values = $this->parser->subparse([$this, 'decidePutEnd'], true);
 
+            // @deprecated using {% endput overwrite %} is deprecated
             if ($token = $stream->nextIf(TwigToken::NAME_TYPE)) {
-                $endType = $token->getValue();
+                $options[] = $token->getValue();
             }
 
             $stream->expect(TwigToken::BLOCK_END_TYPE);
         }
 
-        return new PutNode($capture, $names, $values, $endType, $lineno, $this->getTag());
+        return new PutNode($capture, $names, $values, $options, $lineno, $this->getTag());
     }
 
     /**

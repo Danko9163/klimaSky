@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0, minimal-ui">
+    <title>{% block title %}{{ appName }}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/png" href="{{ 'assets/images/favicon.ico'  }}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <style type="text/css" media="screen">
+        body {
+            font-family: Avenir, Helvetica, sans-serif;
+            box-sizing: border-box;
+            color: black;
+            text-decoration: none
+        }
+
+        .container {
+            margin: auto;
+            max-width: 570px;
+        }
+
+        .headline *,
+        .header *,
+        .footer * {
+            color: black !important;
+        }
+
+        .headline {
+            position: relative;
+            height: 50px;
+            background-color: #fff;
+            font-size: 16px;
+            border-bottom: 1px solid #edeff2 !important;
+            padding-bottom: 10px;
+        }
+
+        .headline div {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            top: 50%;
+        }
+
+        .headline img {
+            margin-right: 10px;
+            height: 40px;
+            vertical-align: middle;
+        }
+
+        .headline span {
+            position: relative;
+            top: 2px;
+        }
+
+        .content,
+        .footer {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer {
+            border-top: 1px solid #edeff2 !important;
+            font-size: 12px;
+        }
+
+        .error {
+            padding: 15px 0;
+            color: red;
+        }
+
+        .success {
+            padding: 15px 0;
+            color: green;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        form input {
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 10px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        form button {
+            font-size: 14px;
+            background: #31ac5f;
+            padding: 10px 40px;
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .headline {
+                height: auto;
+            }
+
+            .headline span,
+            .headline img {
+                display: block;
+                margin: auto;
+                text-align: center;
+            }
+
+            .headline img {
+                height: 50px;
+            }
+
+            .headline div {
+                position: static;
+                transform: none;
+            }
+
+            form input {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="headline">
+            <div>
+                <img src="{{ agency.image.path }}" />
+                <span>{{ agency.name ?? appName }}</span>
+            </div>
+        </div>
+
+
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div class="footer">
+            &copy; {{ "now"|date("Y") }} {{ agency.name ?? appName }}. All rights reserved.
+        </div>
+    </div>
+
+    {% block javascripts %}{% endblock %}
+</body>
+
+</html>

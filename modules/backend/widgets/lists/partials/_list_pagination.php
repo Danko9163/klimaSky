@@ -141,21 +141,21 @@
             data-chooser-id="<?= $this->getId('pageChooser') ?>"
             data-handler="<?= $this->getEventHandler('onPaginate') ?>"
             class="control-list-page-chooser">
-            <div class="input-group">
+            <div class="input-group flex-nowrap">
                 <span class="input-group-text"><?= __('Go to page') ?></span>
                 <input
                     type="number"
                     value=""
                     name="<?= e($pageName) ?>"
                     autocomplete="off"
-                    class="form-control"
+                    class="form-control input-no-spinner"
                     style="width: 75px"
                     data-chooser-input
                     data-popover-autofocus />
                 <button
                     type="submit"
                     class="btn btn-primary">
-                    <?= __('Go') ?>
+                    <?= __("Go") ?>
                 </button>
             </div>
         </form>

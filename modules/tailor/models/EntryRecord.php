@@ -452,6 +452,7 @@ class EntryRecord extends BlueprintModel
 
     /**
      * getValidationPresenceVerifier
+     * @see \Tailor\Classes\PresenceVerifier
      */
     protected function getValidationPresenceVerifier()
     {
@@ -462,6 +463,8 @@ class EntryRecord extends BlueprintModel
         $verifier->setDraftMode($this->getDraftModeColumnName());
 
         $verifier->setIsVersion($this->getIsVersionColumn());
+
+        $verifier->setDeletedAt($this->getDeletedAtColumn());
 
         return $verifier;
     }

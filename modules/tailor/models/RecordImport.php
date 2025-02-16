@@ -50,6 +50,14 @@ class RecordImport extends ImportModel
     }
 
     /**
+     * @todo consolidate with HasGeneralBlueprint (v4)
+     */
+    public function extendWithBlueprint()
+    {
+        $this->getContentFieldsetDefinition()->applyModelExtensions($this, 'import');
+    }
+
+    /**
      * importData
      */
     public function importData($results, $sessionKey = null)
@@ -116,6 +124,24 @@ class RecordImport extends ImportModel
      */
     public function decodeModelAttribute($model, $attr, $value, $sessionKey)
     {
+        /**
+         * @event model.beforeImportAttribute
+         * Called when the model is importing an attribute
+         *
+         * Example usage:
+         *
+         *     $model->bindEvent('model.beforeImportAttribute', function (string $attr, mixed &$value) use (\October\Rain\Database\Model $model) {
+         *         // Apply data transformations
+         *         if ($attr === 'price') {
+         *             $value = (int) $value;
+         *         }
+         *     });
+         *
+         */
+        if ($this->fireEvent('model.beforeImportAttribute', [$attr, &$value], true) === false) {
+            return;
+        }
+
         if ($model->hasRelation($attr)) {
             $relationModel = $model->makeRelation($attr);
             if ($relationModel instanceof RepeaterItem) {

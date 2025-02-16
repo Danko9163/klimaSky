@@ -1,0 +1,23 @@
+{% extends 'appuser.userapi::layouts.default' %}
+
+{% block title %}Forgot password{% endblock %}
+
+{% block content %}
+
+<strong>Please enter your email.<br><br></strong>
+
+<form method="post">
+    <label for="email">Please enter your email</label><br>
+    <input type="email" name="email" placeholder="Email"><br><br>
+
+    <button>Send reset link</button>
+</form>
+
+{% if message %}
+<div class="success">{{ message }}</div>
+
+<p>You can now continue to <a href="{{ url('/') }}/api/v1/auth/reset-password/?email={{ email }}">password reset</a>
+    page. </p>
+{% endif %}
+
+{% endblock %}

@@ -74,13 +74,11 @@ class NestedItemsField extends ContentFieldBase
     }
 
     /**
-     * defineListColumn
+     * defineBatchListColumn
      */
-    public function defineListColumn(ListElement $list, $context = null)
+    public function defineBatchListColumn(ListElement $list, $context = null)
     {
-        if ($context === 'import' || $context === 'export') {
-            $list->defineColumn($this->fieldName, $this->label);
-        }
+        $list->defineColumn($this->fieldName, $this->label);
     }
 
     /**

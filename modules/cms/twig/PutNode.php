@@ -14,9 +14,9 @@ class PutNode extends TwigNode
     /**
      * __construct
      */
-    public function __construct(bool $capture, TwigNode $names, TwigNode $values, $endType, $lineno, $tag = 'put')
+    public function __construct(bool $capture, TwigNode $names, TwigNode $values, $options, $lineno, $tag = 'put')
     {
-        parent::__construct(['names' => $names, 'values' => $values], ['capture' => $capture, 'endType' => $endType], $lineno, $tag);
+        parent::__construct(['names' => $names, 'values' => $values], ['capture' => $capture, 'options' => $options], $lineno, $tag);
     }
 
     /**
@@ -28,22 +28,36 @@ class PutNode extends TwigNode
         $values = $this->getNode('values');
         $isCapture = $this->getAttribute('capture');
         if ($isCapture) {
+            $options = (array) $this->getAttribute('options');
+            // @deprecated using overwrite is deprecated
+            $isReplace = in_array('replace', $options) || in_array('overwrite', $options);
+            $isOnce = in_array('once', $options);
+
             $blockName = $names->getNode(0);
+            $compiler->addDebugInfo($this);
+
+            if ($isOnce) {
+                $compiler
+                    ->write("\$this->env->getExtension(\Cms\Twig\Extension::class)->yieldBlockOnce(")
+                    ->string($this->getTemplateName())
+                    ->write(", ");
+                ;
+            }
+            else {
+                $compiler->write("\$this->env->getExtension(\Cms\Twig\Extension::class)->yieldBlock(");
+            }
+
             $compiler
-                ->addDebugInfo($this)
-                ->write("\$this->env->getExtension(\Cms\Twig\Extension::class)->yieldBlock(")
-                ->raw("'".$blockName->getAttribute('name')."'")
+                ->string($blockName->getAttribute('name'))
                 ->write(", function() use (\$context, \$blocks, \$macros) {\n")
             ;
-
-            $isOverwrite = strtolower($this->getAttribute('endType')) == 'overwrite';
 
             $compiler->subcompile($this->getNode('values'));
 
             $compiler
                 ->addDebugInfo($this)
                 ->write("return; yield '';}, ")
-                ->raw($isOverwrite ? 'false' : 'true')
+                ->raw($isReplace ? 'false' : 'true')
                 ->write(");\n")
             ;
         }

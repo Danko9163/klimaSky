@@ -532,6 +532,10 @@ class MediaLibrary
             $file = array_first($file);
         }
 
+        if ($file instanceof \Illuminate\Support\Collection) {
+            $file = $file->first();
+        }
+
         if ($file instanceof \October\Rain\Database\Attach\File) {
             return $file->getPath();
         }

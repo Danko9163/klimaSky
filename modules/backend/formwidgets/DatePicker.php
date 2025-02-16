@@ -161,7 +161,7 @@ class DatePicker extends FormWidgetBase
         $this->vars['minDate'] = $this->minDate;
         $this->vars['maxDate'] = $this->maxDate;
         $this->vars['yearRange'] = $this->yearRange;
-        $this->vars['disableDays'] = $this->disableDays;
+        $this->vars['disableDays'] = $this->getDisableDaysString();
         $this->vars['firstDay'] = $this->firstDay;
         $this->vars['twelveHour'] = $this->twelveHour;
         $this->vars['hoursOnly'] = $this->hoursOnly;
@@ -198,6 +198,7 @@ class DatePicker extends FormWidgetBase
         $this->twelveHour = $this->formField->twelveHour;
         $this->hoursOnly = $this->formField->hoursOnly;
         $this->showWeekNumber = $this->formField->showWeekNumber;
+        $this->disableDays = $this->formField->disableDays;
     }
 
     /**
@@ -208,6 +209,19 @@ class DatePicker extends FormWidgetBase
         if ($this->format) {
             return DateTimeHelper::momentFormat($this->format);
         }
+    }
+
+    /**
+     * getDisableDaysString allows setting the disableDays property as a string
+     * that refers to a callable method
+     */
+    protected function getDisableDaysString()
+    {
+        if ($callableMethod = $this->formField->getCallableMethodFromValue($this->disableDays)) {
+            return $callableMethod($this->model);
+        }
+
+        return $this->disableDays;
     }
 
     /*

@@ -438,6 +438,10 @@ class SiteDefinition extends Model
             return true;
         }
 
+        if ($user->is_superuser) {
+            return true;
+        }
+
         if (!$user || !$user->role_id) {
             return false;
         }

@@ -21,6 +21,11 @@ class PresenceVerifier extends DatabasePresenceVerifier
     protected $isVersionColumn = null;
 
     /**
+     * @var string|null deletedAtColumn
+     */
+    protected $deletedAtColumn = null;
+
+    /**
      * setDraftMode
      */
     public function setDraftMode($column = null)
@@ -34,6 +39,14 @@ class PresenceVerifier extends DatabasePresenceVerifier
     public function setIsVersion($column = null)
     {
         $this->isVersionColumn = $column;
+    }
+
+    /**
+     * setDeletedAt
+     */
+    public function setDeletedAt($column = null)
+    {
+        $this->deletedAtColumn = $column;
     }
 
     /**
@@ -53,6 +66,10 @@ class PresenceVerifier extends DatabasePresenceVerifier
 
         if ($this->isVersionColumn) {
             $query->where($this->isVersionColumn, false);
+        }
+
+        if ($this->deletedAtColumn) {
+            $query->whereNull($this->deletedAtColumn);
         }
 
         return $query;

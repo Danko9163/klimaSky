@@ -32,6 +32,11 @@ class Extension extends TwigExtension
     protected $controller;
 
     /**
+     * @var array putOnceCache stores the cache for yieldBlockOnce
+     */
+    protected $putOnceCache = [];
+
+    /**
      * __construct the extension instance.
      */
     public function __construct(Controller $controller = null)
@@ -420,6 +425,20 @@ class Extension extends TwigExtension
         }
         else {
             Block::set($name, $content);
+        }
+    }
+
+    /**
+     * yieldBlockOnce will append or set some content once per template (partial)
+     */
+    public function yieldBlockOnce(string $templateName, $placeholderName, $callable, $append = false)
+    {
+        $cacheKey = "{$templateName}-{$placeholderName}";
+
+        if (!isset($this->putOnceCache[$cacheKey])) {
+            $this->yieldBlock($placeholderName, $callable, $append);
+
+            $this->putOnceCache[$cacheKey] = true;
         }
     }
 
